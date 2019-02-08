@@ -27,7 +27,9 @@ manopt() {
 # POWERLINE_BASH_SELECT=1
 # . /usr/share/powerline/bindings/bash/powerline.sh
 
-source /usr/bin/z.sh
+if [ -f /usr/bin/z.sh ]; then
+    . /usr/bin/z.sh
+fi
 # Change into directory without cd
 shopt -s autocd
 
