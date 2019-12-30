@@ -1,43 +1,69 @@
 # Font for window titles. Will also be used by the bar unless a different font
-font pango:monospace 11
+font pango:Hack 11
 set $mod Mod4
 
 gaps inner 15
-gaps outer 10
+gaps outer 0
 bindsym $mod+Shift+d	gaps inner current set 0; gaps outer current set 0
-bindsym $mod+Shift+t	gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+t	gaps inner current set 15; gaps outer current set 0
 
 bindsym $mod+shift+x exec ~/.config/i3/custom-lock/lock.sh
+bindsym $mod+shift+g exec ~/.scripts/glitch.sh
 
-set $active-color		#ff00ff
+set $active-color        #ff00ff
 set $bg-color 	         #2f343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
+set $transp              #000000
+# set_from_resource $transp i3wm.color0 #FFF
+#0b0b0c
 
 # window colors
 #                       border              background         text                 indicator
-client.focused          $bg-color          $bg-color      $active-color       $bg-color 
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $bg-color 
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $bg-color 
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $bg-color 
+client.focused          $active-color       $active-color      $text-color          $bg-color
+client.unfocused        $transp             $transp            $inactive-text-color $bg-color 
+client.focused_inactive $transp             $transp            $inactive-text-color $bg-color 
+client.urgent           $transp             $transp            $text-color          $bg-color 
 
-hide_edge_borders both
+#hide_edge_borders both
+
+for_window [class="^URxvt.*"] border pixel 2
+default_border pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt -letsp -2
+bindsym $mod+Return exec urxvt -sl 100000
+bindsym $mod+Shift+Return exec urxvt -name floating -sl 100000
+
+for_window [class="^URxvt.*" instance="floating"] floating enable
 
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym Control+Shift+q kill
-bindsym $mod++q kill
+bindsym $mod+q kill
+
 
 bindsym $mod+d exec rofi -show run -lines 6 -theme ~/.config/i3/rofi-theme.rasi
 
+bindsym $mod+period workspace next
+bindsym $mod+comma workspace prev
+
+bindsym $mod+Control+l workspace next
+bindsym $mod+Control+h workspace prev
+
+bindsym $mod+Right workspace next
+bindsym $mod+Left  workspace prev
+
+bindsym $mod+Shift+o workspace next
+bindsym $mod+Shift+y  workspace prev
+
+
+bindsym --whole-window --border $mod+button4 workspace prev
+bindsym --whole-window --border $mod+button5 workspace next
 
 # change focus
 bindsym $mod+h focus left
@@ -46,10 +72,8 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left 30
@@ -71,11 +95,15 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+Control+f fullscreen enable
+bindsym $mod+Control+Shift+f fullscreen disable
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+bindsym $mod+Shift+s exec xset s activate
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -102,6 +130,16 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+set $ws20 "20"
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -115,16 +153,16 @@ bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
 # switch to workspace (with numpad)
-bindsym $mod+Mod2+KP_1 workspace $ws1
-bindsym $mod+Mod2+KP_2 workspace $ws2
-bindsym $mod+Mod2+KP_3 workspace $ws3
-bindsym $mod+Mod2+KP_4 workspace $ws4
-bindsym $mod+Mod2+KP_5 workspace $ws5
-bindsym $mod+Mod2+KP_6 workspace $ws6
-bindsym $mod+Mod2+KP_7 workspace $ws7
-bindsym $mod+Mod2+KP_8 workspace $ws8
-bindsym $mod+Mod2+KP_9 workspace $ws9
-bindsym $mod+Mod2+KP_0 workspace $ws10
+bindsym $mod+Mod2+KP_1 workspace $ws11
+bindsym $mod+Mod2+KP_2 workspace $ws12
+bindsym $mod+Mod2+KP_3 workspace $ws13
+bindsym $mod+Mod2+KP_4 workspace $ws14
+bindsym $mod+Mod2+KP_5 workspace $ws15
+bindsym $mod+Mod2+KP_6 workspace $ws16
+bindsym $mod+Mod2+KP_7 workspace $ws17
+bindsym $mod+Mod2+KP_8 workspace $ws18
+bindsym $mod+Mod2+KP_9 workspace $ws19
+bindsym $mod+Mod2+KP_0 workspace $ws20
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -139,51 +177,49 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 #move focused container to workspace (with numpad)
-bindsym $mod+Shift+Mod2+KP_End move container to workspace $ws1
-bindsym $mod+Shift+Mod2+KP_Down move container to workspace $ws2
-bindsym $mod+Shift+Mod2+KP_Next move container to workspace $ws3
-bindsym $mod+Shift+Mod2+KP_Left move container to workspace $ws4
-bindsym $mod+Shift+Mod2+KP_Begin move container to workspace $ws5
-bindsym $mod+Shift+Mod2+KP_Right move container to workspace $ws6
-bindsym $mod+Shift+Mod2+KP_Home move container to workspace $ws7
-bindsym $mod+Shift+Mod2+KP_Up move container to workspace $ws8
-bindsym $mod+Shift+Mod2+KP_Prior move container to workspace $ws9
-bindsym $mod+Shift+Mod2+KP_Insert move container to workspace $ws10
+bindsym $mod+Shift+Mod2+KP_End move container to workspace $ws11
+bindsym $mod+Shift+Mod2+KP_Down move container to workspace $ws12
+bindsym $mod+Shift+Mod2+KP_Next move container to workspace $ws13
+bindsym $mod+Shift+Mod2+KP_Left move container to workspace $ws14
+bindsym $mod+Shift+Mod2+KP_Begin move container to workspace $ws15
+bindsym $mod+Shift+Mod2+KP_Right move container to workspace $ws16
+bindsym $mod+Shift+Mod2+KP_Home move container to workspace $ws17
+bindsym $mod+Shift+Mod2+KP_Up move container to workspace $ws18
+bindsym $mod+Shift+Mod2+KP_Prior move container to workspace $ws19
+bindsym $mod+Shift+Mod2+KP_Insert move container to workspace $ws20
+
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output eDP-1
+workspace 5 output eDP-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
+workspace 11 output HDMI-1
+workspace 12 output HDMI-1
+workspace 13 output HDMI-1
+workspace 14 output HDMI-1
+workspace 15 output HDMI-1
+workspace 16 output HDMI-1
+workspace 17 output HDMI-1
+workspace 18 output HDMI-1
+workspace 19 output HDMI-1
+workspace 20 output HDMI-1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exit 
 
 
-bindsym Control+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym Control+Shift+e exit
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-bindsym $mod+y resize shrink width 10 px or 10 
+bindsym $mod+y resize shrink width 10 px or 10 ppt
 bindsym $mod+u resize grow height 10 px or 10 ppt
 bindsym $mod+i resize shrink height 10 px or 10 ppt
 bindsym $mod+o resize grow width 10 px or 10 ppt
@@ -194,36 +230,54 @@ bindsym $mod+r mode "resize"
 
 
 
-bindsym XF86AudioMedia exec mpc toggle
-bindsym XF86AudioPlay  exec mpc play
-bindsym XF86AudioPause exec mpc pause
-bindsym XF86AudioNext  exec mpc next
-bindsym XF86AudioPrev  exec mpc previous
-bindsym XF86AudioMute		exec --no-startup-id amixer set Master toggle
-bindsym XF86AudioLowerVolume	exec --no-startup-id amixer set Master 5-
-bindsym XF86AudioRaiseVolume	exec --no-startup-id amixer set Master 5+
-bindsym XF86PowerOff exec --no-startup-id prompt "Are you sure you want to shutdown?" "$shutdown"
+#bindsym XF86AudioMedia exec mpc toggle
+#bindsym XF86AudioPlay  exec mpc play
+#bindsym XF86AudioPause exec mpc pause
+#bindsym XF86AudioNext  exec mpc next
+#bindsym XF86AudioPrev  exec mpc previous
+#bindsym XF86AudioMute		exec --no-startup-id amixer set Master toggle
+#bindsym XF86AudioLowerVolume	exec --no-startup-id amixer set Master 5-
+#bindsym XF86AudioRaiseVolume	exec --no-startup-id amixer set Master 5+
+#bindsym XF86PowerOff exec --no-startup-id prompt "Are you sure you want to shutdown?" "$shutdown"
 
 # bar
-bar {
-	colors {
-		background $bg-color
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
-	status_command i3blocks
-	position top
-}
+#bar {
+#	colors {
+#		background #222222
+#	    	separator #757575
+#		#                  border             background         text
+#		focused_workspace  $bg-color          $bg-color          $text-color
+#		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#	}
+#	status_command i3blocks
+#	position top
+#	mode hide
+#}
 
 bindsym $mod+p exec urxvt -n python -e python3 -i
 bindsym $mod+m exec firefox
+bindsym $mod+g exec google-chrome-stable
 
-exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
-exec --no-startup-id wal -i ~/Pictures/wallpaper.jpg -a 70
+# Desktop screenshot
+bindsym --release Print exec "scrot ~/Pictures/screenshots/$(date --iso-8601='seconds').png -m -e 'xclip -selection c -t image/png < $f'"
+# Choose window
+bindsym --release Mod1+Sys_Req exec "import -window `xwininfo | awk '/.*Window id:.*/ {print $4}'` ~/Pictures/screenshots/$(date --iso-8601='seconds').png"
+# Selection screenshot
+bindsym --release Shift+Print exec "scrot ~/Pictures/screenshots/$(date --iso-8601='seconds').png -s -e 'xclip -selection c -t image/png < $f'"
 
-exec --no-startup-id redshift -l 37.9:-122.1
-exec --no-startup-id compton -f
 
+exec --no-startup-id ~/.scripts/make_home.sh && compton -f -D 7 --config ~/.config/compton/compton.config
+# exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/rainy.jpg
+# exec --no-startup-id wal -i ~/Pictures/wallpapers/rainy.jpg
+
+exec --no-startup-id redshift -l 37.9:-122.1 -t 4500:2000 &
+# exec --no-startup-id compton -f -D 7 --config ~/.config/compton/compton.config
+
+exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id xautolock -locker ~/.scripts/glitch.sh -time 5
+# exec --no-startup-id xset s 305
+exec --no-startup-id xset s off
+exec --no-startup-id libinput-gestures-setup start
+exec --no-startup-id polybar top -c ~/dotfiles/polybar/0.polybar
+exec --no-startup-id polybar top -c ~/dotfiles/polybar/1.polybar
