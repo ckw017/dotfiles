@@ -1,8 +1,12 @@
 *foreground: #00cc00
 *foreground_bold: #a8a19f
 *cursor: #a8a19f
-*background:       #1b1918
+*background:       #000000
+!!#1b1918
 !!*background: rgba(0, 0, 0, .7)
+
+URxvt.iso14755: true
+URxvt.iso14755_52: false
 
 !! black
 *color0: #1b1918
@@ -36,11 +40,16 @@ URxvt.cursorBlink:	true
 
 Urxvt.letterSpace: -2
 URxvt.intensityStyles:	false
-URxvt.background:       [70]#000000
 URxvt.depth:		32
-URxvt.font: 		xft:Monospace:pixelsize=15
+URxvt.font: 		xft:Hack-Regular:pixelsize=15, xft:symbola:pixelsize=15
 URxvt.scrollBar:	false
 URxvt.cursorColor:	#ee00ee
+
+URxvt.background: #000000
+!!#070708
+!!#1b1918
+URxvt.transparent: false
+URxvt.shading: 20
 
 !! Extensions
 URxvt.perl-lib: /usr/lib/urxvt/perl
@@ -50,8 +59,12 @@ URxvt.colorUL:		#4682B4
 !! resize-font
 URxvt.resize-font.smaller:	C-Down
 URxvt.resize-font.bigger:	C-Up
+URxvt.resize-font.smaller:      C-minus
+URxvt.resize-font.bigger:       C-equal
+URxvt.resize-font.bigger:       C-plus
+
 !! Matcher
-URxvt.url-launcher:	linkhandler
+URxvt.url-launcher:	firefox
 URxvt.matcher.button:	1
 
 rofi.color-enabled:	true
@@ -67,3 +80,4 @@ rofi.opacity:		"10"
 rofi.hide-scrollbar:	true
 rofi.width:		30
 
+[termname]*vbell: True 
