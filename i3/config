@@ -271,11 +271,10 @@ exec --no-startup-id ~/.scripts/make_home.sh && compton -f -D 7 --config ~/.conf
 # exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/rainy.jpg
 # exec --no-startup-id wal -i ~/Pictures/wallpapers/rainy.jpg
 
-exec --no-startup-id redshift -l 37.9:-122.1 -t 4500:2000 &
+exec --no-startup-id redshift -l 37.9:-122.1 -t 4500:4500 &
 # exec --no-startup-id compton -f -D 7 --config ~/.config/compton/compton.config
 
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id xautolock -locker ~/.scripts/glitch.sh -time 5
 # exec --no-startup-id xset s 305
 exec --no-startup-id xset s off
 exec --no-startup-id libinput-gestures-setup start

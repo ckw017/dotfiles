@@ -1,0 +1,6 @@
+#! /bin/bash
+numlockx &
+xset b off
+
+# xinput set-button-map 11 1 2 3 5 4 7 6
+setxkbmap -option caps:escape
