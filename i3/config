@@ -1,5 +1,5 @@
 # Font for window titles. Will also be used by the bar unless a different font
-font pango:Hack 11
+font pango:Hack 20
 set $mod Mod4
 
 gaps inner 15
@@ -45,6 +45,8 @@ for_window [class="^URxvt.*" instance="floating"] floating enable
 bindsym $mod+Shift+q kill
 bindsym Control+Shift+q kill
 bindsym $mod+q kill
+bindsym --release $mod+c exec xdotool key --clearmodifiers Ctrl+Insert
+bindsym --release $mod+v exec xdotool key --clearmodifiers Shift+Insert
 
 
 bindsym $mod+d exec rofi -show run -lines 6 -theme ~/.config/i3/rofi-theme.rasi
@@ -88,10 +90,7 @@ bindsym $mod+Shift+Up move up 30
 bindsym $mod+Shift+Right move right 30
 
 # split in horizontal orientation
-bindsym $mod+b split h
-
-# split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+b split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -266,15 +265,15 @@ bindsym --release Mod1+Sys_Req exec "import -window `xwininfo | awk '/.*Window i
 # Selection screenshot
 bindsym --release Shift+Print exec "scrot ~/Pictures/screenshots/$(date --iso-8601='seconds').png -s -e 'xclip -selection c -t image/png < $f'"
 
-
-exec --no-startup-id ~/.scripts/make_home.sh && compton -f -D 7 --config ~/.config/compton/compton.config
+exec --no-startup-id ~/.scripts/make_home.sh
+#exec --no-startup-id compton -f -D 7 --config ~/dotfiles/compton/compton.config
 # exec --no-startup-id feh --bg-scale ~/Pictures/wallpapers/rainy.jpg
 # exec --no-startup-id wal -i ~/Pictures/wallpapers/rainy.jpg
 
-exec --no-startup-id redshift -l 37.9:-122.1 -t 4500:4500 &
-# exec --no-startup-id compton -f -D 7 --config ~/.config/compton/compton.config
+exec --no-startup-id redshift -l 37.9:-122.1 -t 4500:2000 &
 
 exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id xautolock -locker ~/.scripts/glitch.sh -time 5
 # exec --no-startup-id xset s 305
 exec --no-startup-id xset s off
 exec --no-startup-id libinput-gestures-setup start
