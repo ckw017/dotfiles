@@ -15,7 +15,7 @@ if [ -f ~/.bash_privatealiases ]; then
 fi
 
 # Load z.sh
-~/dotfiles/z/z.sh
+source ~/dotfiles/z/z.sh
 
 # Manopt func
 manopt() {
